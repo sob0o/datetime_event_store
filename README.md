@@ -133,12 +133,12 @@ Returns all events in `[start, end)` in ascending order.
 
 ## CI with GitHub Actions
 
-Every push and pull request on `main` triggers an automated test run via GitHub Actions inside a Python 3.11 container.
+Every push and pull request on `master` triggers an automated test run via GitHub Actions inside a Python 3.11 container.
 
 This guarantees that the code works correctly in a clean environment on every change :
 
 ```
-push to main
+push to master
     │
     ▼
 GitHub Actions starts a Python 3.11 container
