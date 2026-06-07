@@ -17,9 +17,9 @@ def reset():
 def test_store_and_retrieve():
     reset()
     store = DatetimeEventStore()
-    store.store_event(at=datetime.datetime(2024, 6, 15), data="réunion")
-    store.store_event(at=datetime.datetime(2024, 6, 20), data="déploiement")
-    store.store_event(at=datetime.datetime(2024, 8, 1),  data="vacances")
+    store.store_event(at=datetime.datetime(2024, 6, 15), data="meeting")
+    store.store_event(at=datetime.datetime(2024, 6, 20), data="deployment")
+    store.store_event(at=datetime.datetime(2024, 8, 1),  data="vacation")
 
     results = list(store.get_events(
         start=datetime.datetime(2024, 6, 1),
@@ -27,14 +27,14 @@ def test_store_and_retrieve():
     ))
 
     assert len(results) == 2
-    assert results[0].data == "réunion"
-    assert results[1].data == "déploiement"
+    assert results[0].data == "meeting"
+    assert results[1].data == "deployment"
 
 
 def test_start_is_inclusive():
     reset()
     store = DatetimeEventStore()
-    store.store_event(at=datetime.datetime(2024, 6, 1), data="exactement au début")
+    store.store_event(at=datetime.datetime(2024, 6, 1), data="exactly at start")
 
     results = list(store.get_events(
         start=datetime.datetime(2024, 6, 1),
@@ -47,7 +47,7 @@ def test_start_is_inclusive():
 def test_end_is_exclusive():
     reset()
     store = DatetimeEventStore()
-    store.store_event(at=datetime.datetime(2024, 7, 1), data="exactement à la fin")
+    store.store_event(at=datetime.datetime(2024, 7, 1), data="exactly at end")
 
     results = list(store.get_events(
         start=datetime.datetime(2024, 6, 1),
@@ -57,12 +57,12 @@ def test_end_is_exclusive():
     assert len(results) == 0
 
 
-def test_mauvais_type_leve_erreur():
+def test_wrong_type_raises_error():
     reset()
     store = DatetimeEventStore()
 
     try:
         store.store_event(at="2024-06-01", data="test")
-        assert False, "aurait dû lever une TypeError"
+        assert False, "should have raised a TypeError"
     except TypeError:
         pass

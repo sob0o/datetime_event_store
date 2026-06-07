@@ -40,9 +40,9 @@ class DatetimeEventStore:
 
     def store_event(self, at: datetime.datetime, data: Any) -> Event:
         if not isinstance(at, datetime.datetime):
-            raise TypeError(f"'at' doit être un datetime, reçu : {type(at).__name__}")
+            raise TypeError(f"'at' must be a datetime, got: {type(at).__name__}")
 
-        # vérification doublon
+        # duplicate check
         ts = at.timestamp()
         if ts in self._keys:
             existing_idx = self._keys.index(ts)
@@ -60,11 +60,11 @@ class DatetimeEventStore:
 
     def get_events(self, start: datetime.datetime, end: datetime.datetime):
         if not isinstance(start, datetime.datetime):
-            raise TypeError(f"'start' doit être un datetime, reçu : {type(start).__name__}")
+            raise TypeError(f"'start' must be a datetime, got: {type(start).__name__}")
         if not isinstance(end, datetime.datetime):
-            raise TypeError(f"'end' doit être un datetime, reçu : {type(end).__name__}")
+            raise TypeError(f"'end' must be a datetime, got: {type(end).__name__}")
         if start >= end:
-            raise ValueError(f"'start' doit être avant 'end'")
+            raise ValueError(f"'start' must be before 'end'")
 
         ts_start = start.timestamp()
         ts_end = end.timestamp()
